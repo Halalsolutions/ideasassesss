@@ -6,7 +6,7 @@ import { persistor } from '../redux/store';
 import { toast } from 'react-toastify'; // Optional: for showing logout messages
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'https://ideasassess.vercel.app',
   headers: {
     'Content-Type': 'application/json',
   },
