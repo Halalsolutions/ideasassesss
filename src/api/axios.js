@@ -6,7 +6,7 @@ import { persistor } from '../redux/store';
 import { toast } from 'react-toastify'; // Optional: for showing logout messages
 
 const axiosInstance = axios.create({
-  baseURL: 'https://ideasassess.vercel.app',
+  baseURL: 'https://ideasassess.onrender.com',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -26,7 +26,7 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => response, 
+  (response) => response,
   (error) => {
     if (
       error.response &&
