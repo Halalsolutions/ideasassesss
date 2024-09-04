@@ -3,7 +3,7 @@ import axiosInstance from '../api/axios';
 export const fetchCourses = async () => {
   try {
     const response = await axiosInstance.get(
-      'http://127.0.0.1:8000/api/courses/',
+      '/api/courses/',
     );
     const data = await response.data;
     return data;
@@ -15,7 +15,7 @@ export const fetchCourses = async () => {
 export const fetchCourse = async (courseId) => {
   try {
     const response = await axiosInstance.get(
-      `http://127.0.0.1:8000/api/courses/${courseId}/`,
+      `/api/courses/${courseId}/`,
     );
     const data = await response.data;
     return data;
@@ -27,7 +27,7 @@ export const fetchCourse = async (courseId) => {
 export const fetchCourseForStudent = async (courseId) => {
   try {
     const response = await axiosInstance.get(
-      `http://127.0.0.1:8000/api/courses/${courseId}/assessments/`,
+      `/api/courses/${courseId}/assessments/`,
     );
     const data = await response.data;
     return data;
