@@ -7,6 +7,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import RedirectHandler from './components/RedirectHandler.jsx';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+
+if (process.env.NODE_ENV === 'production') {
+  disableReactDevTools();
+}
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
