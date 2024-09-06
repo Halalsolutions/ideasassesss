@@ -6,7 +6,7 @@ import './assets/landing-animation.json';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter as BrowserRouter } from 'react-router-dom';
 import RedirectHandler from './components/RedirectHandler.jsx';
 
 createRoot(document.getElementById('root')).render(
