@@ -168,6 +168,11 @@ function Students() {
               </tr>
             </thead>
             <tbody>
+              {
+                loading && (
+                  <Loading />
+                )
+              }
               {currentStudents.map((student) => (
                 <tr key={student.id}>
                   <td className="px-4 py-3">
