@@ -6,6 +6,7 @@ import UpdateStudentModal from '../components/Modals/UpdateStudentModal.jsx';
 import { fetchCourses } from '../services/course.service.js';
 import Loading from '../components/Loading.jsx';
 import ImportStudentsModal from '../components/Modals/ImportStudentsModal.jsx';
+import { toast } from 'react-toastify';
 
 function Students() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,9 +56,15 @@ function Students() {
       }));
       setAllCourses(formattedCourses);
     };
-    loadCourses();
-    loadStudents();
-    setLoading(false);
+    try {
+      setLoading(true);
+      loadCourses();
+      loadStudents();
+    } catch (error) {
+      toast.error('An error occured');
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   if (loading) {
