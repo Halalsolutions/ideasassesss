@@ -39,20 +39,11 @@ const StudentPerformance = () => {
 
   useEffect(() => {
     // Fetch courses
-    setLoading(true);
-    try{
-      axiosInstance
+    axiosInstance
       .get('/api/courses/')
       .then((response) => response.data)
       .then((data) => setCourses(data))
       .catch((error) => console.error('Error fetching courses:', error));
-    } catch (error) {
-      console.error('Error fetching courses:', error);
-      toast.error('Error fetching courses');
-    } finally {
-      setLoading(false);
-    }
-    
   }, []);
 
   useEffect(() => {
@@ -73,6 +64,7 @@ const StudentPerformance = () => {
           setStackedData(performanceResponse.data);
           setRadarData(radarResponse.data); // Set radar data
         } catch (error) {
+          toast.error('Error fetching data:', error);
           console.error('Error fetching data:', error);
         } finally {
           setLoading(false);
@@ -113,14 +105,17 @@ const StudentPerformance = () => {
     [],
   );
 
+  // Filter data to only include students with results
+  const filteredData = data.filter(student => student.results && student.results.length > 0);
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns,
-      data,
+      data: filteredData, // Use the filtered data here
     });
 
   // Prepare data for the bar chart
-  const chartData = data.map(student => ({
+  const chartData = filteredData.map(student => ({
     name: `${student.user.first_name} ${student.user.last_name}`,
     averageScore: student.average_score,
     highestScore: student.highest_score,
@@ -261,8 +256,7 @@ const StudentPerformance = () => {
       {/* Pass Rates */}
       {!loading && (
         <div className="mb-8">
-          <h3 className="text-xl font-semibold```jsx
-          mb-4">Pass Rate</h3>
+          <h3 className="text-xl font-semibold mb-4">Pass Rate</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
