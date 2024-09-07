@@ -25,6 +25,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
 } from 'recharts'; // Import PieChart and Pie
+import { toast } from 'react-toastify';
 
 const StudentPerformance = () => {
   const [data, setData] = useState([]);
@@ -38,11 +39,20 @@ const StudentPerformance = () => {
 
   useEffect(() => {
     // Fetch courses
-    axiosInstance
+    setLoading(true);
+    try{
+      axiosInstance
       .get('/api/courses/')
       .then((response) => response.data)
       .then((data) => setCourses(data))
       .catch((error) => console.error('Error fetching courses:', error));
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      toast.error('Error fetching courses');
+    } finally {
+      setLoading(false);
+    }
+    
   }, []);
 
   useEffect(() => {
