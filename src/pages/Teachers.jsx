@@ -57,8 +57,6 @@ function Teachers() {
       });
   }, []);
 
-
-
   const handleAddTeacher = (newTeacher) => {
     setTeachers((prevTeachers) => [...prevTeachers, newTeacher]);
   };
@@ -104,18 +102,13 @@ function Teachers() {
     );
   }, [teachers, searchQuery]);
 
-    // Memoize pagination logic
-    const currentTeachers = useMemo(() => {
-      const indexOfLastTeacher = currentPage * teachersPerPage;
-      const indexOfFirstTeacher = indexOfLastTeacher - teachersPerPage;
-      return filteredTeachers.slice(
-        indexOfFirstTeacher,
-        indexOfLastTeacher,
-      );
-    }, [filteredTeachers, currentPage]);
+  // Memoize pagination logic
+  const currentTeachers = useMemo(() => {
+    const indexOfLastTeacher = currentPage * teachersPerPage;
+    const indexOfFirstTeacher = indexOfLastTeacher - teachersPerPage;
+    return filteredTeachers.slice(indexOfFirstTeacher, indexOfLastTeacher);
+  }, [filteredTeachers, currentPage]);
 
-
-    
   const totalPages = Math.ceil(filteredTeachers.length / teachersPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
