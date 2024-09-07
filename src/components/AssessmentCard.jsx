@@ -15,7 +15,6 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
   const [courses, setCourses] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
   console.log('Courses', courses);
 
@@ -133,7 +132,7 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
               onClick={handleViewStudentScoresClick}
               className="mt-3 text-indigo-500 inline-flex items-center cursor-pointer"
             >
-              View Students Scores
+              Scores
               <svg
                 fill="none"
                 stroke="currentColor"

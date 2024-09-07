@@ -11,8 +11,8 @@ function AddAssessmentModal({ isOpen, onClose, onCreate }) {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    module: 1,
-    course: 1,
+    module: null,
+    course: null,
     created_by: null,
     time_limit: 60,
     total_marks: 100,
@@ -30,10 +30,15 @@ function AddAssessmentModal({ isOpen, onClose, onCreate }) {
 
   useEffect(() => {
     if (isOpen) {
-      setFormData((prevData) => ({
-        ...prevData,
-        created_by: currentUser.id,
-      }));
+      setFormData({
+        name: '',
+        description: '',
+        module: null,
+        course: null,
+        time_limit: 60,
+        total_marks: 100,
+        passing_marks: 90,
+      });
     }
   }, [isOpen, currentUser.id]);
 
