@@ -57,24 +57,43 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
   };
 
   const handleStatusToggle = async () => {
-    setLoading(true);
     try {
+      // Fetch the questions for this assessment
+      const questions = assessment.questions; // Assume you have a function to get the assessment questions
+      const totalQuestionMarks = questions.reduce(
+        (acc, question) => acc + question.marks,
+        0
+      );
+  
+      // Compare the total question marks with the assessment total marks
+      if (totalQuestionMarks < assessment.total_marks) {
+        toast.warning(
+          `The total marks of the questions (${totalQuestionMarks}) are less than the assessment total marks (${assessment.total_marks}). Please update the assessment marks.`,
+        );
+        return; // Stop further execution if the marks are less
+      }
+  
+      if (totalQuestionMarks > assessment.total_marks) {
+        toast.warning(
+          `The total marks of the questions (${totalQuestionMarks}) are greater than the assessment total marks (${assessment.total_marks}). Please update the assessment marks.`,
+        );
+        return; // Stop further execution if the marks are greater
+      }
+  
+      // If the marks match, proceed with toggling the status
       const newStatus = !assessment.is_published; // Toggle the publish status
       const updatedAssessment = await updateAssessmentStatus(
         assessment.id,
         newStatus,
       );
-
-      onStatusToggle(updatedAssessment);
+  
+      onStatusToggle(updatedAssessment); // Update the parent component state
       toast.success('Assessment status updated successfully');
     } catch (error) {
       console.error(error);
       toast.error('Failed to update assessment status');
-    } finally {
-      setLoading(false);
     }
   };
-
   return (
     <div className="p-4 lg:w-1/2 md:w-full">
       <div
