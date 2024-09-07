@@ -57,6 +57,7 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
   };
 
   const handleStatusToggle = async () => {
+    setLoading(true);
     try {
       // Fetch the questions for this assessment
       const questions = assessment.questions; // Assume you have a function to get the assessment questions
@@ -92,6 +93,8 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
     } catch (error) {
       console.error(error);
       toast.error('Failed to update assessment status');
+    } finally {
+      setLoading(false);
     }
   };
   return (
