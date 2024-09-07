@@ -5,14 +5,17 @@ import axiosInstance from '../api/axios';
 import bazeLogo from '../assets/images/logos/baze-logo.png';
 import worldBankLogo from '../assets/images/logos/world-bank-logo.png';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { currentUser } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
+    setLoading(true);
     try {
       const refreshToken = localStorage.getItem('refresh_token');
       const accessToken = localStorage.getItem('access_token');
@@ -35,7 +38,10 @@ function Header() {
       dispatch(logout());
       navigate('/');
     } catch (err) {
+      toast.error('An Error occurred while logging out. Please try again.');
       console.error('Logout error: ', err.response?.data || err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
