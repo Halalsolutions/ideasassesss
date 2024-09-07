@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { FaEdit, FaSearch, FaTrash } from 'react-icons/fa';
 import AddTeacherModal from '../components/Modals/AddTeacherModal';
 import { fetchUsers, deleteUser } from '../services/users.service.js';
@@ -48,15 +48,16 @@ function Teachers() {
       const data = await fetchModules();
       setAllModules(data); // Store original data, not formatted
     };
-    loadModules();
-    loadCourses();
-    loadTeachers();
-    setLoading(false);
+
+    Promise.all([loadTeachers(), loadCourses(), loadModules()])
+      .then(() => setLoading(false)) // Only stop loading after data is fetched
+      .catch((error) => {
+        console.error(error);
+        setLoading(false); // Stop loading in case of error
+      });
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+
 
   const handleAddTeacher = (newTeacher) => {
     setTeachers((prevTeachers) => [...prevTeachers, newTeacher]);
@@ -89,29 +90,39 @@ function Teachers() {
     setAllCourses(updatedCourses);
   };
 
-  // Filter teachers based on search query
-  const filteredTeachers = teachers.filter(
-    (teacher) =>
-      teacher.user.first_name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      teacher.user.last_name
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      teacher.user.email.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  // Memoize filtered students for performance optimization
+  const filteredTeachers = useMemo(() => {
+    return teachers.filter(
+      (teacher) =>
+        teacher.user.first_name
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        teacher.user.last_name
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        teacher.user.email.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+  }, [teachers, searchQuery]);
 
-  // Pagination logic
-  const indexOfLastTeacher = currentPage * teachersPerPage;
-  const indexOfFirstTeacher = indexOfLastTeacher - teachersPerPage;
-  const currentTeachers = filteredTeachers.slice(
-    indexOfFirstTeacher,
-    indexOfLastTeacher,
-  );
+    // Memoize pagination logic
+    const currentTeachers = useMemo(() => {
+      const indexOfLastTeacher = currentPage * teachersPerPage;
+      const indexOfFirstTeacher = indexOfLastTeacher - teachersPerPage;
+      return filteredTeachers.slice(
+        indexOfFirstTeacher,
+        indexOfLastTeacher,
+      );
+    }, [filteredTeachers, currentPage]);
 
+
+    
   const totalPages = Math.ceil(filteredTeachers.length / teachersPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <section className="text-gray-600 body-font">
