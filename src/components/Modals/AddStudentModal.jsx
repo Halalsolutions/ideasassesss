@@ -102,6 +102,7 @@ function AddStudentModal({ isOpen, onClose, onAddStudent, allCourses }) {
               value={formData.user.first_name}
               type="text"
               id="first_name"
+              required
               name="first_name"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
@@ -119,6 +120,7 @@ function AddStudentModal({ isOpen, onClose, onAddStudent, allCourses }) {
               type="text"
               id="last_name"
               name="last_name"
+              required
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
           </div>
@@ -153,6 +155,7 @@ function AddStudentModal({ isOpen, onClose, onAddStudent, allCourses }) {
               type="email"
               id="email"
               name="email"
+              required
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
           </div>
@@ -186,6 +189,7 @@ function AddStudentModal({ isOpen, onClose, onAddStudent, allCourses }) {
               type="text"
               id="admission_number"
               name="admission_number"
+              required
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
           </div>

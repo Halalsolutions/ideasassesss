@@ -152,6 +152,7 @@ function UpdateQuestionModal({
             value={formData.question_text}
             type="text"
             id="question_text"
+            required
             name="question_text"
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
           />
@@ -169,6 +170,7 @@ function UpdateQuestionModal({
             type="number"
             id="marks"
             name="marks"
+            required
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
           />
         </div>

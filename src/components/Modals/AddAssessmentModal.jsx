@@ -117,6 +117,7 @@ function AddAssessmentModal({ isOpen, onClose, onCreate }) {
             type="text"
             id="name"
             name="name"
+            required
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
           />
         </div>
@@ -229,6 +230,7 @@ function AddAssessmentModal({ isOpen, onClose, onCreate }) {
               type="number"
               id="total_marks"
               name="total_marks"
+              required
               value={formData.total_marks}
               onChange={handleChange}
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
@@ -246,6 +248,7 @@ function AddAssessmentModal({ isOpen, onClose, onCreate }) {
               id="passing_marks"
               name="passing_marks"
               value={formData.passing_marks}
+              required
               onChange={handleChange}
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
@@ -263,6 +266,7 @@ function AddAssessmentModal({ isOpen, onClose, onCreate }) {
               name="time_limit"
               value={formData.time_limit}
               onChange={handleChange}
+              required
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
           </div>

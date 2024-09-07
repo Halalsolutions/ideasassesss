@@ -145,6 +145,7 @@ function UpdateTeacherModal({
               value={formData.user.first_name}
               type="text"
               id="first_name"
+              required
               name="first_name"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
@@ -161,6 +162,7 @@ function UpdateTeacherModal({
               value={formData.user.last_name}
               type="text"
               id="last_name"
+              required
               name="last_name"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
@@ -175,6 +177,7 @@ function UpdateTeacherModal({
               type="email"
               id="email"
               name="email"
+              required
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
           </div>

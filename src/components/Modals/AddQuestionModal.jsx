@@ -155,6 +155,7 @@ function AddQuestionModal({
             type="text"
             id="question_text"
             name="question_text"
+            required
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
           />
         </div>
@@ -171,6 +172,7 @@ function AddQuestionModal({
             type="number"
             id="marks"
             name="marks"
+            required
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
           />
         </div>

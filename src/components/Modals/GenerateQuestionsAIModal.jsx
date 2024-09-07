@@ -110,6 +110,7 @@ function GenerateQuestionsAIModal({ isOpen, onClose, onSubmit, assessmentId }) {
               min="1"
               id="questions_num"
               name="questions_num"
+              required
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
           </div>
@@ -122,6 +123,7 @@ function GenerateQuestionsAIModal({ isOpen, onClose, onSubmit, assessmentId }) {
               value={marksPerQuestion}
               type="number"
               min="1"
+              required
               id="marks_per_question"
               name="marks_per_question"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"

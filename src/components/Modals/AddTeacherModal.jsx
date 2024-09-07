@@ -120,6 +120,7 @@ function AddTeacherModal({
             type="text"
             id="first_name"
             name="first_name"
+            required
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
           />
         </div>
@@ -135,6 +136,7 @@ function AddTeacherModal({
             value={formData.user.last_name}
             type="text"
             id="last_name"
+            required
             name="last_name"
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
           />
@@ -147,6 +149,7 @@ function AddTeacherModal({
             onChange={handleChange}
             value={formData.user.email}
             type="email"
+            required
             id="email"
             name="email"
             className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"

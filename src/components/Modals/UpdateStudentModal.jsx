@@ -111,6 +111,7 @@ function UpdateStudentModal({
               value={formData.user.first_name}
               type="text"
               id="first_name"
+              required
               name="first_name"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
@@ -126,6 +127,7 @@ function UpdateStudentModal({
               onChange={handleChange}
               value={formData.user.last_name}
               type="text"
+              required
               id="last_name"
               name="last_name"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
@@ -157,6 +159,7 @@ function UpdateStudentModal({
               value={formData.user.email}
               type="email"
               id="email"
+              required
               name="email"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
@@ -173,6 +176,7 @@ function UpdateStudentModal({
               value={formData.admission_number}
               type="text"
               id="admission_number"
+              required
               name="admission_number"
               className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
             />
