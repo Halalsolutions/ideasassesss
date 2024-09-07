@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addQuestion } from '../../services/aseessment.service';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function GenerateQuestionsAIModal({
   isOpen,
@@ -14,6 +15,7 @@ function GenerateQuestionsAIModal({
   const [marksPerQuestion, setMarksPerQuestion] = useState(1);
   const [charCount, setCharCount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const maxChars = 10000;
 
   const handleMaterialChange = (e) => {
@@ -59,7 +61,8 @@ function GenerateQuestionsAIModal({
       toast.success('Questions generated successfully!');
       onClose();
     } catch (error) {
-      // Handle any errors that occur during the API call
+      console.error('Error:', error);
+      setError('An error occurred while generating questions.');
       toast.error(
         'An error occurred while generating questions. Please try again.',
       );
@@ -145,9 +148,10 @@ function GenerateQuestionsAIModal({
             className="py-2 px-4 bg-indigo-500 text-white rounded hover:bg-indigo-600"
             disabled={loading}
           >
-            {loading ? 'Generating...' : 'Generate'}
+            {loading ? <ClipLoader size={20} color={'#fff'} />  : 'Generate'}
           </button>
         </div>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
     </div>
   );
