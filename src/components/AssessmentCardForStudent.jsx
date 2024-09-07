@@ -45,8 +45,6 @@ function AssessmentCardForStudent({
           assessment.is_published ? 'animate-pulse' : ''
         }`}
       >
-        
-        </div>
         <div className="flex-grow">
           <div className="flex justify-between">
             <h2 className="text-gray-900 text-lg font-bold title-font mb-3">
@@ -62,8 +60,8 @@ function AssessmentCardForStudent({
             {formattedEndTime}. It contains a total of{' '}
             {assessment.questions.length} Questions with{' '}
             {assessment.total_marks} Total marks and the passing marks are{' '}
-            {assessment.passing_marks} marks, with {formattedTimeLimit}{' '}
-             Minutes Time Limit
+            {assessment.passing_marks} marks, with {formattedTimeLimit} Minutes
+            Time Limit
           </p>
 
           <div className="flex justify-between mt-4">
