@@ -6,6 +6,7 @@ import bazeLogo from '../assets/images/logos/baze-logo.png';
 import worldBankLogo from '../assets/images/logos/world-bank-logo.png';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 function Header() {
   const dispatch = useDispatch();
