@@ -20,9 +20,9 @@ function StudentGrades() {
       try {
         const response = await axiosInstance.get('/api/results/user/');
         setResults(response.data);
-        setLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
         setLoading(false);
       }
     };
