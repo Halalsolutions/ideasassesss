@@ -4,12 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { addQuestion } from '../../services/aseessment.service';
 import ClipLoader from 'react-spinners/ClipLoader';
 
-function GenerateQuestionsAIModal({
-  isOpen,
-  onClose,
-  onSubmit,
-  assessmentId,
-}) {
+function GenerateQuestionsAIModal({ isOpen, onClose, onSubmit, assessmentId }) {
   const [material, setMaterial] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(1);
   const [marksPerQuestion, setMarksPerQuestion] = useState(1);
@@ -103,34 +98,37 @@ function GenerateQuestionsAIModal({
           rows="8"
           disabled={loading}
         ></textarea>
-        <div className="mb-4">
-          <label htmlFor="email" className="leading-7 text-sm text-gray-600">
-            Number Of Questions
-          </label>
-          <input
-            onChange={handleNumQuestionsChange}
-            value={numOfQuestions}
-            type="number"
-            min="1"
-            id="questions_num"
-            name="questions_num"
-            className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
-          />
+        <div className="mb-4 flex space-x-2">
+          <div className="">
+            <label htmlFor="email" className="leading-7 text-sm text-gray-600">
+              Number Of Questions
+            </label>
+            <input
+              onChange={handleNumQuestionsChange}
+              value={numOfQuestions}
+              type="number"
+              min="1"
+              id="questions_num"
+              name="questions_num"
+              className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
+            />
+          </div>
+          <div className="">
+            <label htmlFor="email" className="leading-7 text-sm text-gray-600">
+              Marks Per Question
+            </label>
+            <input
+              onChange={handleMarksPerQuestionChange}
+              value={marksPerQuestion}
+              type="number"
+              min="1"
+              id="marks_per_question"
+              name="marks_per_question"
+              className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
+            />
+          </div>
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="leading-7 text-sm text-gray-600">
-            Marks Per Question
-          </label>
-          <input
-            onChange={handleMarksPerQuestionChange}
-            value={marksPerQuestion}
-            type="number"
-            min="1"
-            id="marks_per_question"
-            name="marks_per_question"
-            className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 py-1 px-3 text-gray-700"
-          />
-        </div>
+
         <p className={`text-sm ${charCount > maxChars ? 'text-red-500' : ''}`}>
           {charCount}/{maxChars} characters
         </p>
@@ -148,7 +146,7 @@ function GenerateQuestionsAIModal({
             className="py-2 px-4 bg-indigo-500 text-white rounded hover:bg-indigo-600"
             disabled={loading}
           >
-            {loading ? <ClipLoader size={20} color={'#fff'} />  : 'Generate'}
+            {loading ? <ClipLoader size={20} color={'#fff'} /> : 'Generate'}
           </button>
         </div>
         {error && <p className="text-red-500 mt-4">{error}</p>}
