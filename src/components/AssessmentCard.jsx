@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
   // fetch courses
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
