@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ClipLoader from 'react-spinners/ClipLoader.js';
+
 import { FaTrash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { updateCurrentUser } from '../redux/userSlice';
@@ -13,6 +15,7 @@ import { toast } from 'react-toastify';
 function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
   // fetch courses
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,6 +37,7 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
   };
 
   const handleDeleteAssessment = async () => {
+    setLoading(true);
     try {
       const response = await deleteAssessment(assessment.id);
       if (response.status === 204) {
@@ -43,6 +47,8 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
     } catch (error) {
       console.error(error);
       toast.error('Failed to delete assessment');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,6 +57,7 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
   };
 
   const handleStatusToggle = async () => {
+    setLoading(true);
     try {
       const newStatus = !assessment.is_published; // Toggle the publish status
       const updatedAssessment = await updateAssessmentStatus(
@@ -63,6 +70,8 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
     } catch (error) {
       console.error(error);
       toast.error('Failed to update assessment status');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,6 +101,7 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
               {assessment.name}
             </h2>
 
+            
             <FaTrash
               onClick={handleDeleteAssessment}
               className="text-red-500 cursor-pointer hover:text-red-400"
@@ -154,7 +164,13 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
                   : 'bg-green-500 hover:bg-green-600'
               }`}
             >
-              {assessment.is_published ? 'Take Down' : 'Publish'}
+              {loading ? (
+                <ClipLoader size={20} color={'#fff'} />
+              ) : assessment.is_published ? (
+                'Take Down'
+              ) : (
+                'Publish'
+              )}
             </button>
           </div>
         </div>
