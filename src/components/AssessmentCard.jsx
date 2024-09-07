@@ -105,7 +105,6 @@ function AssessmentCard({ icon, assessment, onDelete, onStatusToggle }) {
         }`}
       >
         
-        </div>
         <div className="flex-grow">
           <div className="flex justify-between">
             <h2 className="text-gray-900 text-lg font-bold title-font mb-3">
