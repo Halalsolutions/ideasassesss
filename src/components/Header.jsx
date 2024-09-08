@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { logout } from '../redux/authSlice';
 import axiosInstance from '../api/axios';
 import bazeLogo from '../assets/images/logos/baze-logo.png';
 import worldBankLogo from '../assets/images/logos/world-bank-logo.png';
-import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { ClipLoader } from 'react-spinners';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 
 function Header() {
   const dispatch = useDispatch();
@@ -15,6 +15,7 @@ function Header() {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     setLoading(true);
@@ -43,84 +44,48 @@ function Header() {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   const renderNavLinks = () => {
     switch (currentUser?.user.user_type) {
       case 'student':
         return (
           <>
-            <NavLink
-              to="/my-assessments"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>My Assessments</li>
+            <NavLink to="/my-assessments" className="text-gray-700 hover:text-blue-500">
+              My Assessments
             </NavLink>
-            <NavLink
-              to="/my-grades"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>My Grades</li>
+            <NavLink to="/my-grades" className="text-gray-700 hover:text-blue-500">
+              My Grades
             </NavLink>
           </>
         );
       case 'superuser':
         return (
           <>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>Dashboard</li>
+            <NavLink to="/dashboard" className="text-gray-700 hover:text-blue-500">
+              Dashboard
             </NavLink>
-            <NavLink
-              to="/students"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>Students</li>
+            <NavLink to="/students" className="text-gray-700 hover:text-blue-500">
+              Students
             </NavLink>
-            <NavLink
-              to="/teachers"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>Teachers</li>
+            <NavLink to="/teachers" className="text-gray-700 hover:text-blue-500">
+              Teachers
             </NavLink>
-            <NavLink
-              to="/assessments"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>Assessments</li>
+            <NavLink to="/assessments" className="text-gray-700 hover:text-blue-500">
+              Assessments
             </NavLink>
           </>
         );
       case 'teacher':
         return (
           <>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>Dashboard</li>
+            <NavLink to="/dashboard" className="text-gray-700 hover:text-blue-500">
+              Dashboard
             </NavLink>
-            <NavLink
-              to="/assessments"
-              className={({ isActive }) =>
-                `text-gray-700 hover:text-blue-500 ${isActive && 'border-b'}`
-              }
-            >
-              <li>Assessments</li>
+            <NavLink to="/assessments" className="text-gray-700 hover:text-blue-500">
+              Assessments
             </NavLink>
           </>
         );
@@ -130,19 +95,35 @@ function Header() {
   };
 
   return (
-    <header className="w-full p-4 md:p-6 flex flex-wrap justify-between items-center">
+    <header className="w-full p-4 md:p-6 flex justify-between items-center">
       {/* Logo Section */}
-      <div className="flex space-x-2 items-center">
+      <div className="flex items-center space-x-2">
         <img className="h-10 md:h-12" src={bazeLogo} alt="Baze Logo" />
         <h1 className="text-xl md:text-2xl font-semibold">Baze Ideas</h1>
       </div>
 
-      {/* Navigation Links */}
-      {isAuthenticated && (
-        <ul className="hidden md:flex space-x-4">{renderNavLinks()}</ul>
+      {/* Hamburger Icon (for mobile) */}
+      <div className="md:hidden">
+        <button onClick={toggleMobileMenu} className="text-2xl">
+          {isMobileMenuOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+        </button>
+      </div>
+
+      {/* Navigation Links (for desktop) */}
+      <nav className="hidden md:flex space-x-4">
+        {isAuthenticated && renderNavLinks()}
+      </nav>
+
+      {/* Mobile Menu (for mobile screens) */}
+      {isMobileMenuOpen && (
+        <nav className="absolute top-16 left-0 w-full bg-white shadow-lg md:hidden">
+          <ul className="flex flex-col space-y-4 p-4">
+            {isAuthenticated && renderNavLinks()}
+          </ul>
+        </nav>
       )}
 
-      {/* Right Section (Logout or World Bank Logo) */}
+      {/* Right Section */}
       <div className="flex space-x-4 items-center">
         {isAuthenticated ? (
           <button
@@ -156,11 +137,6 @@ function Header() {
           <img className="h-10 md:h-12" src={worldBankLogo} alt="World Bank Logo" />
         )}
       </div>
-
-      {/* Mobile Nav Links (Visible on small screens) */}
-      {isAuthenticated && (
-        <ul className="md:hidden w-full mt-4 flex justify-around">{renderNavLinks()}</ul>
-      )}
     </header>
   );
 }
