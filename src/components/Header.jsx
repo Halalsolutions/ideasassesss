@@ -24,13 +24,9 @@ function Header() {
 
       await axiosInstance.post(
         '/api/auth/logout/',
+        { refresh_token: refreshToken },
         {
-          refresh_token: refreshToken,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          headers: { Authorization: `Bearer ${accessToken}` },
         },
       );
 
@@ -134,27 +130,36 @@ function Header() {
   };
 
   return (
-    <header className="w-full p-6 flex justify-between items-center">
-      <div className="flex space-x-2">
-        <img className="h-12" src={bazeLogo} alt="Baze Logo" />
-        <h1 className="text-2xl font-semibold mt-1">Baze Ideas</h1>
+    <header className="w-full p-4 md:p-6 flex flex-wrap justify-between items-center">
+      {/* Logo Section */}
+      <div className="flex space-x-2 items-center">
+        <img className="h-10 md:h-12" src={bazeLogo} alt="Baze Logo" />
+        <h1 className="text-xl md:text-2xl font-semibold">Baze Ideas</h1>
       </div>
-      <div>
-        {isAuthenticated && (
-          <ul className="flex space-x-4">{renderNavLinks()}</ul>
+
+      {/* Navigation Links */}
+      {isAuthenticated && (
+        <ul className="hidden md:flex space-x-4">{renderNavLinks()}</ul>
+      )}
+
+      {/* Right Section (Logout or World Bank Logo) */}
+      <div className="flex space-x-4 items-center">
+        {isAuthenticated ? (
+          <button
+            onClick={handleLogout}
+            disabled={loading}
+            className="flex text-white bg-red-400 border-0 py-2 px-4 md:px-6 focus:outline-none hover:bg-red-600 rounded"
+          >
+            {loading ? <ClipLoader size={20} color={'#fff'} /> : 'Logout'}
+          </button>
+        ) : (
+          <img className="h-10 md:h-12" src={worldBankLogo} alt="World Bank Logo" />
         )}
       </div>
 
-      {isAuthenticated ? (
-        <button
-          onClick={handleLogout}
-          disabled={loading}
-          className="flex text-white bg-red-400 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-        >
-          {loading ? <ClipLoader size={20} color={'#fff'} /> : 'Logout'}
-        </button>
-      ) : (
-        <img className="h-12" src={worldBankLogo} alt="World Bank Logo" />
+      {/* Mobile Nav Links (Visible on small screens) */}
+      {isAuthenticated && (
+        <ul className="md:hidden w-full mt-4 flex justify-around">{renderNavLinks()}</ul>
       )}
     </header>
   );
