@@ -13,7 +13,7 @@ import LandingImg from '../assets/images/landing-image.webp';
 const Landing = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isFirstLogin, currentUser } = useSelector((state) => state.user);
+  const { isFirstLogin, userId, currentUser } = useSelector((state) => state.user);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
